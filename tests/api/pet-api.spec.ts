@@ -79,7 +79,26 @@ test.describe('Pet API Tests', () => {
 
         const response = await AutomationExerciseService.addNewPetOnlyWithEmptyBody();
         const responseBody = await response.json();
-        const petSchema = await AutomationExerciseService.defineAddNewPetWithWithOnlyRequiredFieldsResponseSchema();
+
+        expect(response.status()).toBe(400);
+        expect(responseBody.message).toBe('Bad Request');
+        
+    });
+
+    test('POST. Should verify that new pet can`t be added without required name field in request', async () => {
+
+        const response = await AutomationExerciseService.addNewPetWithoutRequiredNameField();
+        const responseBody = await response.json();
+
+        expect(response.status()).toBe(400);
+        expect(responseBody.message).toBe('Bad Request');
+        
+    });
+
+    test('POST. Should verify that new pet can`t be added without required photoUrls field in request', async () => {
+
+        const response = await AutomationExerciseService.addNewPetWithoutRequiredphotoUrlsField();
+        const responseBody = await response.json();
 
         expect(response.status()).toBe(400);
         expect(responseBody.message).toBe('Bad Request');

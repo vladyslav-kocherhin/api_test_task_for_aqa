@@ -152,6 +152,68 @@ public static async addNewPetOnlyWithEmptyBody(): Promise<APIResponse> {
   return response;
 }
 
+public static async addNewPetWithoutRequiredNameField(): Promise<APIResponse> {
+  const context = await this.getRequestContext();
+
+  const randomId = faker.number.int({ min: 100, max: 999 });
+  const randomPhotoUrls = faker.internet.email();
+  const statusOptions = ['available', 'pending', 'sold'] as const;
+  const randomStatus = faker.helpers.arrayElement(statusOptions);
+
+  const requestBody = {
+  "id": randomId,
+  "category": {
+    "id": randomId,
+    "name": "string"
+  },
+  "photoUrls": [
+    randomPhotoUrls
+  ],
+  "tags": [
+    {
+      "id": randomId,
+      "name": "string"
+    }
+  ],
+  "status": randomStatus
+};
+  const response = await context.post('/v2/pet', {
+    data: requestBody,
+  });
+
+  return response;
+}
+
+public static async addNewPetWithoutRequiredphotoUrlsField(): Promise<APIResponse> {
+  const context = await this.getRequestContext();
+
+  const randomId = faker.number.int({ min: 100, max: 999 });
+  const randomPetName = faker.animal.dog();
+  const statusOptions = ['available', 'pending', 'sold'] as const;
+  const randomStatus = faker.helpers.arrayElement(statusOptions);
+
+  const requestBody = {
+  "id": randomId,
+  "category": {
+    "id": randomId,
+    "name": "string"
+  },
+  "name": randomPetName,
+  "tags": [
+    {
+      "id": randomId,
+      "name": "string"
+    }
+  ],
+  "status": randomStatus
+};
+  const response = await context.post('/v2/pet', {
+    data: requestBody,
+  });
+
+  return response;
+}
+
 };
 
 
