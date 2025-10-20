@@ -82,6 +82,7 @@ public static async defineAddNewPetWithValidDataResponseSchema(): Promise<object
 };
 
 return petSchema;
+
 }
 
 public static async defineAddNewPetWithWithOnlyRequiredFieldsResponseSchema(): Promise<object> {
@@ -111,6 +112,7 @@ public static async defineAddNewPetWithWithOnlyRequiredFieldsResponseSchema(): P
 };
 
 return petSchema;
+
 }
 
 
@@ -128,6 +130,7 @@ public static async addNewPetOnlyWithRequiredFields(): Promise<APIResponse> {
   "photoUrls": [
     randomPhotoUrls
   ]
+  
 };
 
   const response = await context.post('/v2/pet', {
